@@ -3,19 +3,24 @@
         <p class="mb-3 mb-md-0">&copy; 2024 {{ personal_info.fname }} {{ personal_info.lname }}</p>
         <div class="footer-icons d-flex" style="margin-right: 20px">
             {% if personal_info.facebook %}
-            <a href="{{ personal_info.facebook }}" class="icon mx-2" target="_blank">
-                <i class="fab fa-facebook-f"></i>
-            </a>
+                <a href="{{ personal_info.facebook }}" class="icon mx-2" target="_blank">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
             {% endif %}
             {% if personal_info.instagram %}
-            <a href="{{ personal_info.instagram }}" class="icon mx-2" target="_blank">
-                <i class="fab fa-instagram"></i>
-            </a>
+                <a href="{{ personal_info.instagram }}" class="icon mx-2" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
             {% endif %}
             {% if personal_info.linkedin %}
-            <a href="{{ personal_info.linkedin }}" class="icon mx-2" target="_blank">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
+                <a href="{{ personal_info.linkedin }}" class="icon mx-2" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            {% endif %}
+            {% if personal_info.linkedin %}
+                <a href="{{ personal_info.github }}" class="icon mx-2" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
             {% endif %}
         </div>
     </div>
