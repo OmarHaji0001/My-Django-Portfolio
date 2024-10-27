@@ -1,0 +1,13 @@
+.footer{
+    background-color: #212429;
+}
+.footer-icons .icon {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.footer-icons .icon:hover {
+    color: #81d4fa;
+    transition: color 0.3s ease;
+}
+

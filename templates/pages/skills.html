@@ -1,0 +1,103 @@
+{% extends 'index.html' %}
+
+{% block banner %}
+    <div class="image-container w-100" style="position: relative">
+        <img src="{{ banner.image.url }}" alt="{{ banner.alt_text }}" class="bannerStyleOtherPages" width="100%">
+
+        <div class="w-100 d-flex align-items-center justify-content-center row"
+             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
+            <div class="col-md-8 col-sm-10 text-center text-white">
+                <h4 class="d-inline-block text-highlight">Check out some of my skills below</h4>
+            </div>
+        </div>
+    </div>
+{% endblock banner %}
+
+{% block content %}
+    <style>
+        .custom-skills-section {
+            background: url('{{ background_image }}') center top repeat-y;
+            padding: 10px;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 1100px;
+            min-height: 1200px;
+        }
+
+        .custom-skill-card-shadow {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .custom-skill-card-content {
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+        }
+
+        .custom-skill-card {
+            max-width: 250px;
+            margin: 0 auto;
+        }
+
+        .pin-icon {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: black;
+        }
+
+        .custom-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .custom-col {
+            flex: 0 0 32%;
+            max-width: 32%;
+        }
+
+        .custom-skill-title {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            white-space: normal;
+            width: 100%;
+            word-wrap: break-word;
+        }
+    </style>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh; margin-top: 130px">
+        <div class="custom-skills-section">
+            <h2 class="text-center text-black py-4">My Skills</h2>
+            <div class="container">
+                <div class="custom-row">
+                    {% for skill in skills %}
+                        <div class="custom-col mb-3">
+                            <div class="custom-skill-card custom-skill-card-shadow" style="background-color:
+                                    {% cycle '#ffcccb' '#add8e6' '#90ee90' '#f0e68c' '#ffe4b5' '#dda0dd' '#afeeee' '#98fb98' %};">
+                                <i class="fas fa-thumbtack pin-icon" data-aos="fade-down"></i>
+                                <div class="custom-skill-card-content">
+                                    <h4 class="custom-skill-title">{{ skill.name }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

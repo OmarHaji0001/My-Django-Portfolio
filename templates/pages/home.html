@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block banner %}
+    <div class="image-container w-100" style="position: relative">
+        <img src="{{ banner.image.url }}" alt="{{ banner.alt_text }}" class="bannerStyle" width="100%">
+
+        <div class="w-100 d-flex align-items-center justify-content-center row"
+             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
+            <div class="col-md-6 col-sm-8 d-flex align-items-center justify-content-center">
+                <img src="{{ personal_info.photo.url }}" alt="Profile Picture" class="profile-pic">
+            </div>
+            <div class="profile-intro col-md-6 col-sm-12">
+                <h2>Hi, I'm Omar Haji</h2>
+                <h4 style="display: inline;font-weight: bold">And I'm a <span class="auto-type"></span></h4>
+                <h5 style="margin-top: 30px">I'm a Full-Stack developer based in Nablus</h5>
+                <h5>Welcome to my website</h5>
+            </div>
+        </div>
+    </div>
+{% endblock banner %}
+
+{% block content %}
+    {% include 'base components/carousel.html' %}
+    <div class="container mt-5">
+        <h2 class="pb-2 border-bottom text-center text-white" style="margin-bottom: 20px">Testimonials</h2>
+        {% for testimonial in testimonials %}
+            {% if forloop.counter0|divisibleby:2 %}
+                {% include 'base components/testimonial_card.html' with testimonial=testimonial position="left" %}
+                <h2 class="pb-2 border-bottom w-50" style="margin-bottom: 10px"></h2>
+            {% else %}
+                {% include 'base components/testimonial_card.html' with testimonial=testimonial position="right" %}
+                <h2 class="pb-2 border-bottom" style="margin-bottom: 10px"></h2>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock content %}

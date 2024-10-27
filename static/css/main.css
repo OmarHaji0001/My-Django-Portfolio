@@ -1,0 +1,100 @@
+body {
+    background-color: #1b1b1b;
+}
+
+.bannerStyle {
+    width: 100%;
+    height: 550px;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.bannerStyleOtherPages {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    z-index: 0;
+}
+
+.auto-type {
+    color: orange;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.nav-link {
+    position: relative;
+    color: white;
+    text-decoration: none;
+    padding-bottom: 5px;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: orange;
+    left: 0;
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar.scrolled {
+    background-color: #212429 !important;
+    transition: background-color 200ms linear;
+}
+
+.hire-me-btn {
+    background-color: #FFA500;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hire-me-btn:hover {
+    background-color: #E69500;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.text-highlight {
+    color: orange;
+}
+
+
+@media (max-width: 991px) {
+    .sidebar {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        backdrop-filter: blur(10px) !important;
+        z-index: 1050;
+    }
+}
+
+@media (max-width: 320px) {
+    .sidebar {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        backdrop-filter: blur(10px) !important;
+        z-index: 1050;
+    }
+
+    .text-highlight {
+        font-size: 1rem;
+        line-height: 1.3;
+    }
+}

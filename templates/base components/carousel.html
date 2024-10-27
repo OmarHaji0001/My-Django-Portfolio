@@ -1,0 +1,17 @@
+<div class="container py-5">
+    <h2 class="pb-2 border-bottom text-center text-white" style="margin-bottom: 20px">My Projects</h2>
+    <div class="owl-carousel owl-theme">
+        {% for project in projects %}
+        <div class="item">
+            <div class="card shadow-sm" style="height: 380px;">
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text text-truncate-2">{{ project.description|truncatewords:15 }}</p>
+                    <a href="{% url 'project_detail' project.id %}" style="text-decoration: none" class="hire-me-btn mt-auto">View Project</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,104 @@
+.owl-carousel .item {
+    text-align: center;
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+    transform: scale(0.8);
+    opacity: 0.5;
+}
+
+.owl-carousel .owl-item.active.center .item {
+    transform: scale(1.1);
+    z-index: 2;
+    opacity: 1;
+}
+
+.card {
+    width: 100%;
+    border-radius: 10px;
+    height: 480px;
+    position: relative;
+}
+.card:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+}
+.card img {
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
+    height: 220px;
+}
+
+.text-truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 160px;
+}
+
+.owl-carousel .owl-nav button.owl-prev,
+.owl-carousel .owl-nav button.owl-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: orange;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.owl-carousel .owl-nav button.owl-next {
+    right: -30px;
+}
+
+.owl-carousel .owl-nav button.owl-prev {
+    left: -30px;
+}
+
+.owl-carousel .owl-nav button.owl-next .owl-next-icon,
+.owl-carousel .owl-nav button.owl-prev .owl-prev-icon {
+    display: none;
+}
+
+.owl-carousel .owl-nav button.owl-next::before,
+.owl-carousel .owl-nav button.owl-prev::before {
+    font-weight: 900;
+    color: black;
+    font-size: 18px;
+}
+
+.owl-carousel .owl-nav button.owl-next:hover,
+.owl-carousel .owl-nav button.owl-prev:hover {
+    background-color: #e69500;
+}
+@media (max-width: 992px) {
+    .owl-carousel .owl-nav button.owl-prev,
+    .owl-carousel .owl-nav button.owl-next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: orange;
+    }
+
+    .owl-carousel .owl-nav button.owl-prev {
+        left: 10px;
+    }
+
+    .owl-carousel .owl-nav button.owl-next {
+        right: 10px;
+    }
+}

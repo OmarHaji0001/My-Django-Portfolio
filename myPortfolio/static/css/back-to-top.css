@@ -1,0 +1,85 @@
+#wm-back-to-top {
+  z-index: 999;
+  position: fixed;
+  display: flex;
+  bottom: 0;
+  right: 0;
+  min-width: 42px;
+  min-height: 42px;
+  flex-direction: row;
+  gap: 9px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: content-box;
+  margin: 9px;
+  padding: 8px;
+  cursor: pointer;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(0px) scale(1);
+  background: transparent;
+  border-radius: 50px;
+  border-width: 1px;
+  border-color: #000000;
+  border-style: solid;
+  visibility: hidden;
+  transition: opacity .3s ease, transform .3s ease, visibility 0s ease .3s;
+  will-change: transform;
+  backdrop-filter: blur(10px);
+}
+
+#wm-back-to-top.show {
+  transform: translateY(0px);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .3s ease, transform .3s ease, visibility 0s ease 0s;
+}
+
+#wm-back-to-top .icon {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  line-height: 0;
+  height: auto;
+  width: auto;
+}
+
+#wm-back-to-top .text {
+  position: relative;
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+#wm-back-to-top svg {
+  width: 28px;
+  height: 28px;
+}
+
+#wm-back-to-top path {
+  stroke-width: 5px;
+  stroke: #000000;
+}
+
+#wm-back-to-top .btt-background {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ffa500;
+  opacity: 1;
+  transition: opacity .3s ease;
+}
+
+#wm-back-to-top:hover {
+  transform: translateY(-3px);
+  opacity: .85;
+}
+
+#wm-back-to-top:active {
+  transform: translateY(-3px) scale(.95);
+}

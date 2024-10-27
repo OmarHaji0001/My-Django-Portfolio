@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block banner %}
+    <div class="image-container w-100" style="position: relative">
+        <img src="{{ banner.image.url }}" alt="{{ banner.alt_text }}" class="bannerStyleOtherPages" width="100%">
+        <div class="w-100 d-flex align-items-center justify-content-center row"
+             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
+            <div class="col-md-8 col-sm-10 text-center text-white">
+                <h4 class="d-inline-block text-highlight">Feel free to contact me using the form below.</h4>
+            </div>
+        </div>
+    </div>
+{% endblock banner %}
+
+{% block content %}
+    <div class="container my-5 d-flex justify-content-center">
+        <div class="w-100" style="max-width: 600px;"> <!-- Adjust the max-width to control field width -->
+            <h2 class="text-center mb-4 text-white">Contact Me</h2>
+            <form id="contact-form" method="post" action="{% url 'contact' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label text-center d-block text-white">Name</label>
+                    <input type="text" class="form-control text-center" id="name" name="name" placeholder="Your Name"
+                           required style="background-color: orange;">
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label text-center d-block text-white">Email address</label>
+                    <input type="email" class="form-control text-center" id="email" name="email"
+                           placeholder="Your Email" required style="background-color: orange;">
+                </div>
+                <div class="mb-3">
+                    <label for="subject" class="form-label text-center d-block text-white">Subject</label>
+                    <input type="text" class="form-control text-center" id="subject" name="subject"
+                           placeholder="Subject" required style="background-color: orange;">
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label text-center d-block text-white">Message</label>
+                    <textarea class="form-control text-center" id="message" name="message" rows="5"
+                              placeholder="Your Message" required style="background-color: orange;"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit"
+                            style="background-color: #ffa500;
+                            color: #fff;
+                            font-size: 1.1rem;
+                            font-weight: bold;
+                            padding: 10px 20px;
+                            border: none;
+                            border-radius: 8px;
+                            transition: background-color 0.3s ease, transform 0.3s ease;
+                            cursor: pointer;"
+                            onmouseover="this.style.backgroundColor='#e69500';
+                            this.style.transform='scale(1.05)';
+                            this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';"
+                            onmouseout="this.style.backgroundColor='#ffa500';
+                            this.style.transform='scale(1)';
+                            this.style.boxShadow='none';">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

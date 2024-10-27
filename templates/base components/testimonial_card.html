@@ -1,0 +1,86 @@
+<div class="container d-flex justify-content-center my-5 custom-container">
+    <div class="row w-100" style="max-width: 1224px;">
+        {% if position == "left" %}
+            <!-- Certificate on the Left, Info on the Right -->
+            <div class="col-12 col-md-6 mb-3 mb-md-0">
+                <div class="card w-100"
+                     style="height: 400px;
+                             background-size: contain;
+                             background-position: center;
+                             background-repeat: no-repeat;
+                             background-color: #1b1b1b;
+                             background-image: url('{{ testimonial.image.url }}');
+                             cursor: default;
+                             border: none">
+                </div>
+            </div>
+            <div class="col-12 col-md-6 d-flex align-items-center custom-info">
+                <div class="custom-text-overlay p-3">
+                    <h5 class="custom-title">{{ testimonial.name }}</h5>
+                    <h6 class="custom-role">{{ testimonial.role }}</h6>
+                    <p class="custom-feedback">{{ testimonial.feedback }}</p>
+                    <small class="custom-date">{{ testimonial.date_given|date:"F j, Y" }}</small>
+                </div>
+            </div>
+        {% else %}
+            <!-- Info on the Left, Certificate on the Right -->
+            <div class="col-12 col-md-6 d-flex align-items-center custom-info mb-3 mb-md-0">
+                <div class="custom-text-overlay p-3">
+                    <h5 class="custom-title">{{ testimonial.name }}</h5>
+                    <h6 class="custom-role">{{ testimonial.role }}</h6>
+                    <p class="custom-feedback">{{ testimonial.feedback }}</p>
+                    <small class="custom-date">{{ testimonial.date_given|date:"F j, Y" }}</small>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card w-100"
+                     style="height: 400px;
+                             background-size: contain;
+                             background-position: center;
+                             background-repeat: no-repeat;
+                             background-color: #1b1b1b;
+                             background-image: url('{{ testimonial.image.url }}');
+                             border: none">
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    .custom-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    .custom-text-overlay {
+        background-color: rgba(255, 165, 0, 0.5);
+        padding: 1rem;
+        border-radius: 8px;
+    }
+
+    .custom-title {
+        color: #ffffff;
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+
+    .custom-role {
+        color: #d1d1d1;
+        font-size: 1rem;
+    }
+
+    .custom-feedback {
+        color: #f1f1f1;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .custom-date {
+        color: #b3b3b3;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+</style>
