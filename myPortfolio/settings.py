@@ -10,6 +10,7 @@ from cloudinary.utils import cloudinary_url
 import myPortfolio.context_processor
 from dotenv import load_dotenv
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
