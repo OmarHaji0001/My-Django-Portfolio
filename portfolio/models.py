@@ -18,7 +18,7 @@ class PersonalInfo(models.Model):
     fname = models.CharField(max_length=50)
     lname = models.CharField(max_length=50)
     phone = models.CharField(max_length=15)
-    photo = CloudinaryField('image')
+    photo = CloudinaryField('photo')
     birthdate = models.DateField()
     job_title = models.CharField(max_length=50)
     email = models.EmailField()
@@ -31,8 +31,8 @@ class PersonalInfo(models.Model):
     github = models.URLField(blank=True, null=True)
     about = RichTextField()
     pdfCV = CloudinaryField('pdf')
-    skills_background_image = CloudinaryField('image', blank=True, null=True)
-    spinner_image = CloudinaryField('image', blank=True, null=True)
+    skills_background_image = CloudinaryField('skills_background_image', blank=True, null=True)
+    spinner_image = CloudinaryField('spinner_image', blank=True, null=True)
     availability = models.CharField(
         max_length=20,
         choices=[('available', 'Available'), ('not_available', 'Not Available')],
@@ -46,8 +46,8 @@ class PersonalInfo(models.Model):
 class Project(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    image = CloudinaryField('image', blank=True, null=True)
-    pdfCV = CloudinaryField('pdf', blank=True, null=True)
+    image = CloudinaryField('project_image', blank=True, null=True)
+    pdfCV = CloudinaryField('pdf_documentation', blank=True, null=True)
     link = models.URLField(blank=True, null=True)
     github_link = models.URLField(blank=True, null=True)
     date_added = models.DateField(auto_now_add=True)
@@ -67,7 +67,7 @@ class Technology(models.Model):
 
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE)
-    image = CloudinaryField('image')
+    image = CloudinaryField('ProjectImage')
     name = models.CharField(max_length=200)
     description = models.TextField()
 
@@ -97,7 +97,7 @@ class Testimonial(models.Model):
     name = models.CharField(max_length=200)
     role = models.CharField(max_length=200, blank=True, null=True)
     feedback = models.TextField()
-    image = CloudinaryField('image', blank=True, null=True)
+    image = CloudinaryField('Testimonial_Image', blank=True, null=True)
     date_given = models.DateField()
 
     def __str__(self):
@@ -107,13 +107,12 @@ class Testimonial(models.Model):
 class Banner(models.Model):
     PAGE_CHOICES = [
         ('home', 'Home'),
-        ('projects', 'Projects'),
         ('skills', 'Skills'),
         ('contact', 'Contact'),
     ]
 
     page = models.CharField(max_length=20, choices=PAGE_CHOICES, unique=True)
-    image = CloudinaryField('image')
+    image = CloudinaryField('Banner_Image')
     alt_text = models.CharField(max_length=255)
 
     def __str__(self):
