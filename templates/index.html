@@ -21,17 +21,21 @@
     <link rel="stylesheet" href="{% static 'css/back-to-top.css' %}">
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/3d_banner.css' %}">
+
     <link rel="icon" href="{{ personal_info.logo.url }}" type="image/png">
 </head>
 <body>
 
 <div style="position: relative">
-    <div style="position: absolute; width: 100%; z-index: 2;">
+    <div style="position: absolute; width: 100%; z-index: 999;">
         {% include 'base components/navbar.html' %}
     </div>
 
-    {% block banner %}
-    {% endblock banner %}
+    <div style="overflow: hidden; max-width: 100vw">
+        {% block banner %}
+        {% endblock banner %}
+    </div>
     <div style="height: 1px;"></div>
 </div>
 
@@ -41,7 +45,7 @@
 {% include 'base components/footer.html' %}
 
 <!-- Back To Top Button -->
-<button id="wm-back-to-top">
+<button id="wm-back-to-top" style="z-index: 50;">
     <div class="btt-background"></div>
     <div class="icon">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title" role="img"
@@ -65,7 +69,6 @@
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-
 <script>
     AOS.init();
     $(window).on("load", function () {
@@ -159,5 +162,8 @@
         window.addEventListener('DOMContentLoaded', checkPos);
     }());
 </script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="{% static 'js/gsap.min.js' %}"></script>
+<script src="{% static 'js/3d_banner.js' %}"></script>
 </body>
 </html>

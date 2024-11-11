@@ -1,17 +1,8 @@
 {% extends 'index.html' %}
+{% load static %}
 
 {% block banner %}
-    <div class="image-container w-100" style="position: relative">
-        <img src="{{ banner.image.url }}" alt="{{ banner.alt_text }}" class="bannerStyleOtherPages" width="100%">
-
-        <div class="w-100 d-flex align-items-center justify-content-center row"
-             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
-            <div class="col-md-8 col-sm-10 text-center text-white">
-                <h4 class="d-inline-block text-highlight">Check out some of my projects
-                    below</h4>
-            </div>
-        </div>
-    </div>
+    {% include 'base components/3d_banner.html' %}
 {% endblock banner %}
 
 {% block content %}
@@ -24,3 +15,4 @@
         {% endfor %}
     </div>
 {% endblock content %}
+
