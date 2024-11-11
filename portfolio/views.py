@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
-from .models import Banner, Project, PersonalInfo, Skill, ContactSubmission, Testimonial
+from .models import Banner, Project, PersonalInfo, Skill, ContactSubmission, Testimonial, BannerImages
 from django.contrib import messages
 
 
@@ -23,10 +23,10 @@ def home(request):
 
 def projects(request):
     projects = Project.objects.all().order_by('created_date')
-    banner = get_object_or_404(Banner, page='projects')
+    banner_images = BannerImages.objects.first()
     context = {
         'projects': projects,
-        'banner': banner,
+        'banner_images': banner_images,
     }
     return render(request, 'pages/projects.html', context)
 

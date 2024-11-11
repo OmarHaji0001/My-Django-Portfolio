@@ -118,3 +118,28 @@ class Banner(models.Model):
 
     def __str__(self):
         return f"Banner for {self.get_page_display()}"
+
+
+class BannerImages(models.Model):
+    background = CloudinaryField('background', blank=True, null=True)
+    fog_7 = CloudinaryField('fog_7', blank=True, null=True)
+    mountain_10 = CloudinaryField('mountain_10', blank=True, null=True)
+    mountain_9 = CloudinaryField('mountain_9', blank=True, null=True)
+    mountain_8 = CloudinaryField('mountain_8', blank=True, null=True)
+    fog_5 = CloudinaryField('fog_5', blank=True, null=True)
+    mountain_7 = CloudinaryField('mountain_7', blank=True, null=True)
+    mountain_6 = CloudinaryField('mountain_6', blank=True, null=True)
+    fog_4 = CloudinaryField('fog_4', blank=True, null=True)
+    mountain_5 = CloudinaryField('mountain_5', blank=True, null=True)
+    fog_3 = CloudinaryField('fog_3', blank=True, null=True)
+    mountain_4 = CloudinaryField('mountain_4', blank=True, null=True)
+    mountain_3 = CloudinaryField('mountain_3', blank=True, null=True)
+    fog_2 = CloudinaryField('fog_2', blank=True, null=True)
+    mountain_2 = CloudinaryField('mountain_2', blank=True, null=True)
+    mountain_1 = CloudinaryField('mountain_1', blank=True, null=True)
+    sun_rays = CloudinaryField('sun_rays', blank=True, null=True)
+    black_shadow = CloudinaryField('black_shadow', blank=True, null=True)
+    fog_1 = CloudinaryField('fog_1', blank=True, null=True)
+
+    def __str__(self):
+        return "3D Banner Images"

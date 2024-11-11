@@ -39,6 +39,7 @@ class TechnologyAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Skill)
+admin.site.register(BannerImages)
 
 
 @admin.register(Experience)
