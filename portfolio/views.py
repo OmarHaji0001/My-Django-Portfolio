@@ -94,6 +94,7 @@ Reply to this email to respond directly to {name} at {email}
     return render(request, 'pages/contact.html', {'banner': banner})
 
 
+
 # def contact(request):
 #     banner = get_object_or_404(Banner, page='contact')
 #
