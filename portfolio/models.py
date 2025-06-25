@@ -65,6 +65,7 @@ class Technology(models.Model):
         return self.name
 
 
+
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project, related_name='images', on_delete=models.CASCADE)
     image = CloudinaryField('ProjectImage')
