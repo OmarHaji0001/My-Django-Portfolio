@@ -62,109 +62,60 @@ def contact(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
-        email_subject = f"Portfolio Contact: {subject}"
-        email_body = f"""New contact from Omar Haji Portfolio:
+        # Improved email content - more professional and less spam-like
+        email_subject = f"Portfolio Inquiry: {subject}"
+        email_body = f"""Hello Omar,
 
-From: {name} ({email})
+You have received a new message through your portfolio website.
+
+CONTACT INFORMATION:
+──────────────────────────────────────
+Name: {name}
+Email: {email}
 Subject: {subject}
 
-Message:
+MESSAGE:
+──────────────────────────────────────
 {message}
 
----
-This message was sent from: https://omar-haji-portfolio.vercel.app
-Reply-To: {email}
+──────────────────────────────────────
+This message was sent from your portfolio contact form at:
+https://omar-haji-portfolio.vercel.app/contact/
+
+To reply, simply respond to this email and it will go directly to {email}.
+
+Best regards,
+Omar Haji Portfolio System
         """
 
         try:
+            # Create EmailMessage with better headers for deliverability
             email_message = EmailMessage(
                 subject=email_subject,
                 body=email_body,
-                from_email='noreply@sendgrid.net',  # SendGrid's authenticated domain
-                to=['omarhaji0002@gmail.com'],
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[settings.CONTACT_EMAIL],
                 reply_to=[email],
                 headers={
-                    'Reply-To': email,
-                    'X-Mailer': 'SendGrid Portfolio Contact',
+                    'X-Mailer': 'Omar Haji Portfolio',
+                    'X-Priority': '3',  # Normal priority (not high, which can trigger spam)
+                    'List-Unsubscribe': f'<mailto:{settings.DEFAULT_FROM_EMAIL}>',
+                    'Message-ID': f'<portfolio-{name.replace(" ", "").lower()}-{email}>',
                 }
             )
 
+            # Send the email
             email_message.send(fail_silently=False)
-            messages.success(request, "Your message has been sent successfully!")
+
+            messages.success(request, "Your message has been sent successfully! I'll get back to you soon.")
 
         except Exception as e:
             messages.error(request, "Sorry, there was an error sending your message. Please try again later.")
-            print(f"Email error: {e}")
+            print(f"Detailed email error: {e}")
 
         return redirect('contact')
 
     return render(request, 'pages/contact.html', {'banner': banner})
-
-
-# @csrf_protect
-# def contact(request):
-#     banner = get_object_or_404(Banner, page='contact')
-#
-#     if request.method == 'POST':
-#         name = request.POST.get('name')
-#         email = request.POST.get('email')
-#         subject = request.POST.get('subject')
-#         message = request.POST.get('message')
-#
-#         # Improved email content - more professional and less spam-like
-#         email_subject = f"Portfolio Inquiry: {subject}"
-#         email_body = f"""Hello Omar,
-#
-# You have received a new message through your portfolio website.
-#
-# CONTACT INFORMATION:
-# ──────────────────────────────────────
-# Name: {name}
-# Email: {email}
-# Subject: {subject}
-#
-# MESSAGE:
-# ──────────────────────────────────────
-# {message}
-#
-# ──────────────────────────────────────
-# This message was sent from your portfolio contact form at:
-# https://omar-haji-portfolio.vercel.app/contact/
-#
-# To reply, simply respond to this email and it will go directly to {email}.
-#
-# Best regards,
-# Omar Haji Portfolio System
-#         """
-#
-#         try:
-#             # Create EmailMessage with better headers for deliverability
-#             email_message = EmailMessage(
-#                 subject=email_subject,
-#                 body=email_body,
-#                 from_email=settings.DEFAULT_FROM_EMAIL,
-#                 to=[settings.CONTACT_EMAIL],
-#                 reply_to=[email],
-#                 headers={
-#                     'X-Mailer': 'Omar Haji Portfolio',
-#                     'X-Priority': '3',  # Normal priority (not high, which can trigger spam)
-#                     'List-Unsubscribe': f'<mailto:{settings.DEFAULT_FROM_EMAIL}>',
-#                     'Message-ID': f'<portfolio-{name.replace(" ", "").lower()}-{email}>',
-#                 }
-#             )
-#
-#             # Send the email
-#             email_message.send(fail_silently=False)
-#
-#             messages.success(request, "Your message has been sent successfully! I'll get back to you soon.")
-#
-#         except Exception as e:
-#             messages.error(request, "Sorry, there was an error sending your message. Please try again later.")
-#             print(f"Detailed email error: {e}")
-#
-#         return redirect('contact')
-#
-#     return render(request, 'pages/contact.html', {'banner': banner})
 
 
 def download_cv(request):

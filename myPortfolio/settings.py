@@ -26,7 +26,7 @@ EMAIL_HOST_USER = 'apikey'  # This is always 'apikey' for SendGrid
 EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
 
 # Your email settings
-DEFAULT_FROM_EMAIL = 'noreply@sendgrid.net'
+DEFAULT_FROM_EMAIL = 'omarhaji0002@gmail.com'
 CONTACT_EMAIL = 'omarhaji0002@gmail.com'
 
 # SECURITY WARNING: keep the secret key used in production secret!
