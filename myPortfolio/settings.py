@@ -39,7 +39,17 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '.vercel.app',
 ]
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.vercel.app',
+    'https://omar-haji-portfolio.vercel.app',  # Replace with your actual Vercel URL
+]
 
+# If you know your exact Vercel domain, add it here
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '.vercel.app',
+    'omar-haji-portfolio.vercel.app',  # Replace with your actual domain
+]
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

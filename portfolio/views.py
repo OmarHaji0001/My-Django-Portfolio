@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
-from .models import Banner, Project, PersonalInfo, Skill, ContactSubmission, Testimonial, BannerImages
+from .models import Banner, Project, PersonalInfo, Skill, Testimonial, BannerImages
 from django.contrib import messages
-from django.core.mail import send_mail  # Add this import
+from django.core.mail import EmailMessage
 from django.conf import settings  # Add this import
+from django.views.decorators.csrf import csrf_protect
 
 
 def custom_404_view(request, exception):
@@ -51,6 +52,7 @@ def skills(request):
     return render(request, 'pages/skills.html', context)
 
 
+@csrf_protect
 def contact(request):
     banner = get_object_or_404(Banner, page='contact')
 
@@ -60,7 +62,7 @@ def contact(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
-        # Create email content - this is the key part
+        # Create email content
         email_subject = f"{subject} - From {name}"
         email_body = f"""
 From: {name} <{email}>
@@ -73,26 +75,27 @@ Reply to this email to respond directly to {name} at {email}
         """
 
         try:
-            # Send email using SendGrid
-            send_mail(
+            # Create EmailMessage
+            email_message = EmailMessage(
                 subject=email_subject,
-                message=email_body,
-                from_email=settings.DEFAULT_FROM_EMAIL,  # This will be your verified email
-                recipient_list=[settings.CONTACT_EMAIL],  # Your email
-                reply_to=[email],  # This is the magic - when you hit reply, it goes to their email!
-                fail_silently=False,
+                body=email_body,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[settings.CONTACT_EMAIL],
+                reply_to=[email],
             )
+
+            # Send the email
+            email_message.send(fail_silently=False)
 
             messages.success(request, "Your message has been sent successfully!")
 
         except Exception as e:
-            messages.error(request, "Sorry, there was an error sending your message. Please try again later.")
-            print(f"Email sending error: {e}")
+            messages.error(request, f"Error sending message: {str(e)}")
+            print(f"Detailed email error: {e}")
 
         return redirect('contact')
 
     return render(request, 'pages/contact.html', {'banner': banner})
-
 
 
 # def contact(request):
