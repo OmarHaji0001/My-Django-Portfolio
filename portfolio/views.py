@@ -62,53 +62,36 @@ def contact(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
-        # Professional email content that avoids spam filters
-        email_subject = f"Portfolio Contact Form: {subject}"
-        email_body = f"""Hello Omar,
-
-You have received a new contact form submission from your portfolio website.
-
-Contact Details:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Name: {name}
-Email: {email}
+        # Create email content
+        email_subject = f"{subject} - From {name}"
+        email_body = f"""
+From: {name} <{email}>
 Subject: {subject}
 
-Message:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 {message}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-This message was sent from: https://omar-haji-portfolio.vercel.app/contact/
-
-To reply to {name}, simply respond to this email.
-
-Best regards,
-Omar Haji Portfolio System
+---
+Reply to this email to respond directly to {name} at {email}
         """
 
         try:
-            # SendGrid EmailMessage with better headers
+            # Create EmailMessage
             email_message = EmailMessage(
                 subject=email_subject,
                 body=email_body,
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 to=[settings.CONTACT_EMAIL],
                 reply_to=[email],
-                headers={
-                    'From': f"Omar Haji Portfolio <{settings.DEFAULT_FROM_EMAIL}>",
-                    'X-Mailer': 'Django Portfolio Contact Form',
-                    'X-Priority': '3',
-                }
             )
 
+            # Send the email
             email_message.send(fail_silently=False)
+
             messages.success(request, "Your message has been sent successfully!")
 
         except Exception as e:
-            messages.error(request, "Sorry, there was an error sending your message. Please try again later.")
-            print(f"Email error: {e}")
+            messages.error(request, f"Error sending message: {str(e)}")
+            print(f"Detailed email error: {e}")
 
         return redirect('contact')
 
