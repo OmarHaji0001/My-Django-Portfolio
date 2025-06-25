@@ -16,6 +16,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
 
+# SendGrid configuration
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'  # This is always 'apikey' for SendGrid
+EMAIL_HOST_PASSWORD = SENDGRID_API_KEY
+
+# Your email settings
+DEFAULT_FROM_EMAIL = 'omarhaji0002@gmail.com'
+CONTACT_EMAIL = 'omarhaji0002@gmail.com'
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
 

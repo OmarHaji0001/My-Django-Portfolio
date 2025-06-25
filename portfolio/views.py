@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404
 from .models import Banner, Project, PersonalInfo, Skill, ContactSubmission, Testimonial, BannerImages
 from django.contrib import messages
+from django.core.mail import send_mail  # Add this import
+from django.conf import settings  # Add this import
 
 
 def custom_404_view(request, exception):
@@ -58,18 +60,61 @@ def contact(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
-        ContactSubmission.objects.create(
-            name=name,
-            email=email,
-            subject=subject,
-            message=message
-        )
+        # Create email content - this is the key part
+        email_subject = f"{subject} - From {name}"
+        email_body = f"""
+From: {name} <{email}>
+Subject: {subject}
 
-        messages.success(request, "Your message has been submitted successfully!")
+{message}
+
+---
+Reply to this email to respond directly to {name} at {email}
+        """
+
+        try:
+            # Send email using SendGrid
+            send_mail(
+                subject=email_subject,
+                message=email_body,
+                from_email=settings.DEFAULT_FROM_EMAIL,  # This will be your verified email
+                recipient_list=[settings.CONTACT_EMAIL],  # Your email
+                reply_to=[email],  # This is the magic - when you hit reply, it goes to their email!
+                fail_silently=False,
+            )
+
+            messages.success(request, "Your message has been sent successfully!")
+
+        except Exception as e:
+            messages.error(request, "Sorry, there was an error sending your message. Please try again later.")
+            print(f"Email sending error: {e}")
 
         return redirect('contact')
 
     return render(request, 'pages/contact.html', {'banner': banner})
+
+
+# def contact(request):
+#     banner = get_object_or_404(Banner, page='contact')
+#
+#     if request.method == 'POST':
+#         name = request.POST.get('name')
+#         email = request.POST.get('email')
+#         subject = request.POST.get('subject')
+#         message = request.POST.get('message')
+#
+#         ContactSubmission.objects.create(
+#             name=name,
+#             email=email,
+#             subject=subject,
+#             message=message
+#         )
+#
+#         messages.success(request, "Your message has been submitted successfully!")
+#
+#         return redirect('contact')
+#
+#     return render(request, 'pages/contact.html', {'banner': banner})
 
 
 # def contact(request):
