@@ -79,6 +79,7 @@ www.omarhaji.com
                     body=auto_reply_body,
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     to=[submission.email],
+                    bcc=[settings.CONTACT_EMAIL],
                 )
                 auto_reply.send(fail_silently=False)
 
