@@ -5,11 +5,15 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '.vercel.app',
     'omar-haji-portfolio.vercel.app',
+    'omarhaji.com',
+    'www.omarhaji.com',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.vercel.app',
     'https://omar-haji-portfolio.vercel.app',
+    'https://omarhaji.com',
+    'https://www.omarhaji.com',
 ]
 
 DATABASES = {
@@ -25,4 +29,6 @@ DATABASES = {
 
 CORS_ALLOWED_ORIGINS = [
     'https://omar-haji-portfolio.vercel.app',
+    'https://omarhaji.com',
+    'https://www.omarhaji.com',
 ]
