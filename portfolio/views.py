@@ -64,7 +64,7 @@ def contact(request):
         subject = request.POST.get('subject')
         message = request.POST.get('message')
 
-        # Save to database in case sendgrid falls or the 2 months free trial ended :)
+        # Save to database always, regardless of email status
         ContactSubmission.objects.create(
             name=name,
             email=email,
@@ -123,10 +123,11 @@ www.omarhaji.com
             )
             auto_reply.send(fail_silently=False)
 
-            messages.success(request, "Your message has been sent successfully!")
         except Exception as e:
-            messages.error(request, f"Error sending message: {str(e)}")
+            pass
 
+        # Always show success, msg is saved to DB regardless
+        messages.success(request, "Your message has been received! I'll get back to you soon.")
         return redirect('contact')
 
     return render(request, 'pages/contact.html', {'banner': banner})
