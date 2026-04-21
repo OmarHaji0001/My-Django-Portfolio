@@ -5,7 +5,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
 
-from .models import Banner, Project, PersonalInfo, Skill, Testimonial, BannerImages
+from .models import Banner, Project, PersonalInfo, Skill, Testimonial, BannerImages, ContactSubmission
 
 
 def custom_404_view(request, exception):
@@ -63,6 +63,14 @@ def contact(request):
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
+
+        # Save to database in case sendgrid falls or the 2 months free trial ended :)
+        ContactSubmission.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message,
+        )
 
         email_subject = f"{subject} - From {name}"
         email_body = f"""
