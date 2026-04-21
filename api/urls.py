@@ -27,5 +27,5 @@ urlpatterns = [
     path('testimonials/', TestimonialListView.as_view(), name='testimonial-list'),
 
     # Contact
-    path('contact/', ContactView.as_view(), name='contact'),
+    path('contact/', ContactView.as_view(), name='api-contact'),
 ]

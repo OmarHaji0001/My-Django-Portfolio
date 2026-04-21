@@ -19,7 +19,7 @@ class ContactAPITest(TestCase):
         from unittest.mock import patch
         with patch('django.core.mail.EmailMessage.send'):
             self.client.post(
-                reverse('contact'),
+                reverse('api-contact'),
                 self.valid_data,
                 format='json'
             )
@@ -27,7 +27,7 @@ class ContactAPITest(TestCase):
 
     def test_contact_rejects_missing_fields(self):
         response = self.client.post(
-            reverse('contact'),
+            reverse('api-contact'),
             {'name': 'Test'},
             format='json'
         )
@@ -37,7 +37,7 @@ class ContactAPITest(TestCase):
         invalid_data = self.valid_data.copy()
         invalid_data['email'] = 'not-an-email'
         response = self.client.post(
-            reverse('contact'),
+            reverse('api-contact'),
             invalid_data,
             format='json'
         )
