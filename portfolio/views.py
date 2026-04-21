@@ -75,7 +75,27 @@ Subject: {subject}
 Reply to this email to respond directly to {name} at {email}
         """
 
+        auto_reply_subject = "Thanks for reaching out — Omar Haji"
+        auto_reply_body = f"""
+Hi {name},
+
+Thank you for your message! I've received it and will get back to you as soon as possible.
+
+Here's a copy of your message:
+---
+Subject: {subject}
+
+{message}
+---
+
+Best regards,
+Omar Haji
+contact@omarhaji.com
+www.omarhaji.com
+        """
+
         try:
+            # Send email to Omar
             email_message = EmailMessage(
                 subject=email_subject,
                 body=email_body,
@@ -84,6 +104,16 @@ Reply to this email to respond directly to {name} at {email}
                 reply_to=[email],
             )
             email_message.send(fail_silently=False)
+
+            # Send auto-reply to sender
+            auto_reply = EmailMessage(
+                subject=auto_reply_subject,
+                body=auto_reply_body,
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to=[email],
+            )
+            auto_reply.send(fail_silently=False)
+
             messages.success(request, "Your message has been sent successfully!")
         except Exception as e:
             messages.error(request, f"Error sending message: {str(e)}")

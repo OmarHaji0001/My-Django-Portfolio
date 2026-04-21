@@ -13,8 +13,40 @@
 {% endblock banner %}
 
 {% block content %}
+    <!-- Toast Notification -->
+    {% if messages %}
+        {% for message in messages %}
+            <div id="toast-message" style="
+                position: fixed;
+                top: 30px;
+                right: 30px;
+                z-index: 9999;
+                background-color: {% if message.tags == 'error' %}#dc3545{% else %}#ffa500{% endif %};
+                color: white;
+                padding: 16px 24px;
+                border-radius: 10px;
+                font-size: 1rem;
+                font-weight: bold;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                opacity: 1;
+                transition: opacity 0.5s ease;
+            ">
+                {{ message }}
+            </div>
+            <script>
+                setTimeout(function() {
+                    var toast = document.getElementById('toast-message');
+                    if (toast) {
+                        toast.style.opacity = '0';
+                        setTimeout(function() { toast.remove(); }, 500);
+                    }
+                }, 3000);
+            </script>
+        {% endfor %}
+    {% endif %}
+
     <div class="container my-5 d-flex justify-content-center">
-        <div class="w-100" style="max-width: 600px;"> <!-- Adjust the max-width to control field width -->
+        <div class="w-100" style="max-width: 600px;">
             <h2 class="text-center mb-4 text-white">Contact Me</h2>
             <form id="contact-form" method="post" action="{% url 'contact' %}">
                 {% csrf_token %}

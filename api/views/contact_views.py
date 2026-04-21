@@ -30,6 +30,7 @@ class ContactView(APIView):
         if serializer.is_valid():
             submission = serializer.save()
 
+            # Email to you
             email_subject = f"{submission.subject} - From {submission.name}"
             email_body = f"""
 From: {submission.name} <{submission.email}>
@@ -41,7 +42,28 @@ Subject: {submission.subject}
 Reply to this email to respond directly to {submission.name} at {submission.email}
             """
 
+            # Auto-reply to sender
+            auto_reply_subject = "Thanks for reaching out — Omar Haji"
+            auto_reply_body = f"""
+Hi {submission.name},
+
+Thank you for your message! I've received it and will get back to you as soon as possible.
+
+Here's a copy of your message:
+---
+Subject: {submission.subject}
+
+{submission.message}
+---
+
+Best regards,
+Omar Haji
+contact@omarhaji.com
+www.omarhaji.com
+            """
+
             try:
+                # Send email to you
                 email_message = EmailMessage(
                     subject=email_subject,
                     body=email_body,
@@ -50,6 +72,16 @@ Reply to this email to respond directly to {submission.name} at {submission.emai
                     reply_to=[submission.email],
                 )
                 email_message.send(fail_silently=False)
+
+                # Send auto-reply to sender
+                auto_reply = EmailMessage(
+                    subject=auto_reply_subject,
+                    body=auto_reply_body,
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[submission.email],
+                )
+                auto_reply.send(fail_silently=False)
+
             except Exception as e:
                 return Response(
                     {'error': f'Email failed: {str(e)}'},
