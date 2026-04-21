@@ -99,7 +99,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = os.getenv('SENDGRID_API_KEY')
-DEFAULT_FROM_EMAIL = 'omarhaji0002@gmail.com'
+DEFAULT_FROM_EMAIL = 'contact@omarhaji.com'
 CONTACT_EMAIL = 'omarhaji0002@gmail.com'
 
 REST_FRAMEWORK = {
