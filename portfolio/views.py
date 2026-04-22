@@ -1,11 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import Http404, JsonResponse
 from django.contrib import messages
-from django.core.mail import EmailMessage
-from django.conf import settings
 from django.views.decorators.csrf import csrf_protect
 
 from .models import Banner, Project, PersonalInfo, Skill, Testimonial, BannerImages, ContactSubmission
+from api.utils import send_contact_emails
 
 
 def custom_404_view(request, exception):
@@ -72,58 +71,9 @@ def contact(request):
             message=message,
         )
 
-        email_subject = f"{subject} - From {name}"
-        email_body = f"""
-From: {name} <{email}>
-Subject: {subject}
-
-{message}
-
----
-Reply to this email to respond directly to {name} at {email}
-        """
-
-        auto_reply_subject = "Thanks for reaching out — Omar Haji"
-        auto_reply_body = f"""
-Hi {name},
-
-Thank you for your message! I've received it and will get back to you as soon as possible.
-
-Here's a copy of your message:
----
-Subject: {subject}
-
-{message}
----
-
-Best regards,
-Omar Haji
-contact@omarhaji.com
-www.omarhaji.com
-        """
-
         try:
-            # Send email to Omar
-            email_message = EmailMessage(
-                subject=email_subject,
-                body=email_body,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to=[settings.CONTACT_EMAIL],
-                reply_to=[email],
-            )
-            email_message.send(fail_silently=False)
-
-            # Send auto-reply to sender
-            auto_reply = EmailMessage(
-                subject=auto_reply_subject,
-                body=auto_reply_body,
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to=[email],
-                bcc=[settings.CONTACT_EMAIL],
-            )
-            auto_reply.send(fail_silently=False)
-
-        except Exception as e:
+            send_contact_emails(name, email, subject, message)
+        except Exception:
             pass
 
         # Always show success, msg is saved to DB regardless
